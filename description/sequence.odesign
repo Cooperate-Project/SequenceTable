@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="de.fzi.cooperate.sequence" version="11.1.1.201610211630">
+  <ownedViewpoints name="de.fzi.cooperate.sequence.sequenceVP" modelFileExtension="uml">
+    <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="LifelineView" domainClass="Interaction">
+      <metamodel href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+      <metamodel href="http://www.eclipse.org/emf/2002/Ecore#/"/>
+      <ownedLineMappings name="Lifeline Lines" domainClass="Lifeline">
+        <defaultForeground>
+          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+        </defaultForeground>
+        <defaultBackground>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='dark_blue']"/>
+        </defaultBackground>
+        <ownedSubLines name="StateInvariant Lines" domainClass="StateInvariant" semanticCandidatesExpression="[self.eInverse(uml::StateInvariant)/]">
+          <defaultForeground>
+            <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </defaultForeground>
+          <defaultBackground>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+          </defaultBackground>
+          <create name="Edit StateInvariant" precondition="true">
+            <variables name="root" documentation="The semantic root element of the table."/>
+            <variables name="element" documentation="The semantic currently edited element."/>
+            <variables name="container" documentation="The semantic element corresponding to the view container."/>
+            <firstModelOperation xsi:type="tool:ExternalJavaAction" name="EditStateInvariantAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+              <parameters name="stateinvariant" value="var:self"/>
+              <parameters name="action" value="['editStateInvariant'/]"/>
+            </firstModelOperation>
+          </create>
+          <delete name="Delete StateInvariant" precondition="true">
+            <variables name="element" documentation="The semantic currently edited element."/>
+            <variables name="root" documentation="The semantic root element of the table."/>
+            <firstModelOperation xsi:type="tool:ExternalJavaAction" name="DeleteStateInvariantAction" precondition="true" id="SequenceViewer.DialogInvoker">
+              <parameters name="stateinvariant" value="var:self"/>
+              <parameters name="action" value="['delStateInvariant'/]"/>
+            </firstModelOperation>
+          </delete>
+        </ownedSubLines>
+        <ownedSubLines name="Message Lines" domainClass="Message" semanticCandidatesExpression="service:getMessages()">
+          <defaultForeground>
+            <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </defaultForeground>
+          <defaultBackground>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+          </defaultBackground>
+          <create name="Edit Message" precondition="true">
+            <variables name="root" documentation="The semantic root element of the table."/>
+            <variables name="element" documentation="The semantic currently edited element."/>
+            <variables name="container" documentation="The semantic element corresponding to the view container."/>
+            <firstModelOperation xsi:type="tool:ExternalJavaAction" name="EditMessageAction" precondition="true" id="SequenceViewer.DialogInvoker">
+              <parameters name="message" value="var:self"/>
+              <parameters name="op" value="'edit'"/>
+              <parameters name="type" value="'Msg'"/>
+              <parameters name="action" value="['editMessage'/]"/>
+            </firstModelOperation>
+          </create>
+          <delete name="Delete Message" precondition="[not (self.oclAsType(uml::Message).messageSort = uml::MessageSort::reply)/]">
+            <variables name="element" documentation="The semantic currently edited element."/>
+            <variables name="root" documentation="The semantic root element of the table."/>
+            <firstModelOperation xsi:type="tool:ExternalJavaAction" name="DeleteMessageAction" precondition="true" id="SequenceViewer.DialogInvoker">
+              <parameters name="message" value="var:self"/>
+              <parameters name="op" value="'del'"/>
+              <parameters name="type" value="'Msg'"/>
+              <parameters name="action" value="['delMessage'/]"/>
+            </firstModelOperation>
+          </delete>
+        </ownedSubLines>
+        <create name="Edit Lifeline" precondition="true">
+          <variables name="root" documentation="The semantic root element of the table."/>
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="container" documentation="The semantic element corresponding to the view container."/>
+          <firstModelOperation xsi:type="tool:ExternalJavaAction" name="EditLifelineAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+            <parameters name="lifeline" value="var:self"/>
+            <parameters name="action" value="['editLifeline'/]"/>
+          </firstModelOperation>
+        </create>
+        <delete name="Delete Lifeline" precondition="true">
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="root" documentation="The semantic root element of the table."/>
+          <firstModelOperation xsi:type="tool:ExternalJavaAction" name="DeleteLifelineAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+            <parameters name="lifeline" value="var:self"/>
+            <parameters name="action" value="['delLifeline'/]"/>
+          </firstModelOperation>
+        </delete>
+      </ownedLineMappings>
+      <ownedCreateLine name="New Lifeline" precondition="true">
+        <variables name="root" documentation="The semantic root element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ExternalJavaAction" name="NewLifelineAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+          <parameters name="interaction" value="var:self"/>
+          <parameters name="action" value="['newLifeline'/]"/>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedCreateLine name="New Message" precondition="true">
+        <variables name="root" documentation="The semantic root element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ExternalJavaAction" name="NewMessageAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+          <parameters name="interaction" value="var:self"/>
+          <parameters name="action" value="['newMessage'/]"/>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedCreateLine name="New StateInvariant" precondition="true">
+        <variables name="root" documentation="The semantic root element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ExternalJavaAction" name="NewStateInvariantAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+          <parameters name="interaction" value="var:self"/>
+          <parameters name="action" value="['newStateInvariant'/]"/>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedCreateLine name="New CombinedFragment" precondition="true">
+        <variables name="root" documentation="The semantic root element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ExternalJavaAction" name="NewCombinedFragmentAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+          <parameters name="interaction" value="var:self"/>
+          <parameters name="action" value="['newCombinedFrag'/]"/>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedColumnMappings name="Diagram Column" headerLabelExpression="Diagram" featureName="owner" labelExpression="[if self.oclIsTypeOf(uml::Lifeline) or self.oclIsTypeOf(uml::StateInvariant) or self.oclIsTypeOf(uml::Message) then self.eContainer().oclAsType(uml::Interaction).name else '' endif/]"/>
+      <ownedColumnMappings name="Message Order Column" headerLabelExpression="Message Order" featureName="interaction" labelExpression="[if self.oclIsKindOf(uml::Message) then self.eContainer().eAllContents(uml::MessageOccurrenceSpecification)->collect(mso | mso.message)->asOrderedSet()->indexOf(self) else '' endif/]"/>
+      <ownedColumnMappings name="Class Column" headerLabelExpression="Class" featureName="represents" labelExpression="aql:self.represents.type.name"/>
+      <ownedColumnMappings name="From Column" headerLabelExpression="From" featureName="sendEvent" labelExpression="[if self.oclIsTypeOf(uml::Message) then self.oclAsType(uml::Message).sendEvent.oclAsType(uml::MessageOccurrenceSpecification).covered.represents.type.name->toString() else '' endif/]"/>
+      <ownedColumnMappings name="To Column" headerLabelExpression="To" featureName="receiveEvent" labelExpression="[if self.oclIsTypeOf(uml::Message) then self.oclAsType(uml::Message).receiveEvent.oclAsType(uml::MessageOccurrenceSpecification).covered.represents.type.name->toString() else '' endif/]"/>
+      <ownedColumnMappings name="Message Column" headerLabelExpression="Message" featureName="signature" labelExpression="service:getMessageName()"/>
+      <ownedColumnMappings name="Message Kind Column" headerLabelExpression="Message Kind" canEdit="false" featureName="messageKind"/>
+      <ownedColumnMappings name="Message Sort Column" headerLabelExpression="Message Sort" canEdit="false" featureName="messageSort"/>
+      <ownedColumnMappings name="Parameter Column" headerLabelExpression="Parameter" featureName="sendEvent" labelExpression="service:getInParameters()"/>
+      <ownedColumnMappings name="Return Column" headerLabelExpression="Return" featureName="sendEvent" labelExpression="service:getReturn()"/>
+      <ownedColumnMappings name="Destruct Column" headerLabelExpression="Destruct" featureName="owner" labelExpression="[if self.eClass() = uml::Lifeline then if self.eInverse(uml::DestructionOccurrenceSpecification)->isEmpty() then 'n' else 'y' endif else '' endif/]"/>
+      <ownedColumnMappings name="Constraint Column" headerLabelExpression="Constraint" featureName="invariant" labelExpression="[if self.oclIsTypeOf(uml::StateInvariant) then self.oclAsType(uml::StateInvariant).invariant.specification.eGet('value') else '' endif/]"/>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:EditionTableDescription" name="MessageView" domainClass="Interaction">
+      <metamodel href="http://www.eclipse.org/uml2/5.0.0/UML#/"/>
+      <metamodel href="http://www.eclipse.org/emf/2002/Ecore#/"/>
+      <ownedLineMappings name="Message and CombinedFragment Lines" domainClass="Element" semanticCandidatesExpression="[self.oclAsType(uml::Interaction).fragment->select(a | a.oclIsKindOf(uml::MessageOccurrenceSpecification) or a.oclIsKindOf(uml::CombinedFragment))->collect(b | if b.oclIsKindOf(uml::MessageOccurrenceSpecification) then b.oclAsType(uml::MessageOccurrenceSpecification).message else b endif)/]">
+        <defaultForeground>
+          <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+        </defaultForeground>
+        <foregroundConditionalStyle predicateExpression="[self.eClass() = uml::CombinedFragment/]">
+          <style>
+            <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </foregroundConditionalStyle>
+        <defaultBackground>
+          <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+        </defaultBackground>
+        <backgroundConditionalStyle predicateExpression="[self.eClass() = uml::CombinedFragment/]">
+          <style>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
+          </style>
+        </backgroundConditionalStyle>
+        <ownedSubLines name="CF InteractionOperands" domainClass="InteractionOperand" semanticCandidatesExpression="[self.oclAsType(uml::CombinedFragment).operand/]">
+          <defaultForeground>
+            <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+          </defaultForeground>
+          <defaultBackground>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+          </defaultBackground>
+          <ownedSubLines name="IO Messages" domainClass="Message" semanticCandidatesExpression="[self.oclAsType(uml::InteractionOperand).fragment->select(mso | mso.oclIsTypeOf(uml::MessageOccurrenceSpecification))->collect(mso | mso.oclAsType(uml::MessageOccurrenceSpecification).message)/]">
+            <defaultForeground>
+              <foreGroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </defaultForeground>
+            <defaultBackground>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            </defaultBackground>
+          </ownedSubLines>
+          <create name="Edit InteractionOperand" precondition="[self.oclIsTypeOf(uml::InteractionOperand)/]">
+            <variables name="root" documentation="The semantic root element of the table."/>
+            <variables name="element" documentation="The semantic currently edited element."/>
+            <variables name="container" documentation="The semantic element corresponding to the view container."/>
+            <firstModelOperation xsi:type="tool:ExternalJavaAction" name="EditInteractionOperandAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+              <parameters name="interactionoperand" value="var:self"/>
+              <parameters name="action" value="['editInterOp'/]"/>
+            </firstModelOperation>
+          </create>
+          <delete name="Delete InteractionOperand" precondition="[self.oclAsType(uml::InteractionOperand).eContainer().oclAsType(uml::CombinedFragment).operand->size() > 1/]">
+            <variables name="element" documentation="The semantic currently edited element."/>
+            <variables name="root" documentation="The semantic root element of the table."/>
+            <firstModelOperation xsi:type="tool:ExternalJavaAction" name="DeleteInteractionOperandAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+              <parameters name="interactionoperand" value="var:self"/>
+              <parameters name="action" value="['delInterOp'/]"/>
+            </firstModelOperation>
+          </delete>
+        </ownedSubLines>
+        <create name="Edit CombinedFragment" precondition="[self.oclIsTypeOf(uml::CombinedFragment)/]">
+          <variables name="root" documentation="The semantic root element of the table."/>
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="container" documentation="The semantic element corresponding to the view container."/>
+          <firstModelOperation xsi:type="tool:ExternalJavaAction" name="EditCombinedFragmentAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+            <parameters name="combinedfragment" value="var:self"/>
+            <parameters name="action" value="['editCombinedFrag'/]"/>
+          </firstModelOperation>
+        </create>
+        <create name="Add InteractionOperand" precondition="[self.oclIsTypeOf(uml::CombinedFragment) and not (self.oclAsType(uml::CombinedFragment).interactionOperator = uml::InteractionOperatorKind::loop)/]">
+          <variables name="root" documentation="The semantic root element of the table."/>
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="container" documentation="The semantic element corresponding to the view container."/>
+          <firstModelOperation xsi:type="tool:ExternalJavaAction" name="AddInteractionOperandAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+            <parameters name="combinedfragment" value="var:self"/>
+            <parameters name="action" value="['newInterOp'/]"/>
+          </firstModelOperation>
+        </create>
+        <create name="Move Message To Interaction Operand" precondition="[self.oclIsTypeOf(uml::Message) and not (self.oclAsType(uml::Message).messageSort = uml::MessageSort::reply) and self.eContainer().oclAsType(uml::Interaction).eInverse(uml::CombinedFragment)->size() > 0/]">
+          <variables name="root" documentation="The semantic root element of the table."/>
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="container" documentation="The semantic element corresponding to the view container."/>
+          <firstModelOperation xsi:type="tool:ExternalJavaAction" name="MoveMessageAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+            <parameters name="message" value="var:self"/>
+            <parameters name="action" value="['moveMessageToIop'/]"/>
+          </firstModelOperation>
+        </create>
+        <create name="Edit Message" precondition="[self.oclIsTypeOf(uml::Message)/]">
+          <variables name="root" documentation="The semantic root element of the table."/>
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="container" documentation="The semantic element corresponding to the view container."/>
+          <firstModelOperation xsi:type="tool:ExternalJavaAction" name="EditMessageAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+            <parameters name="message" value="var:self"/>
+            <parameters name="action" value="['editMessage'/]"/>
+          </firstModelOperation>
+        </create>
+        <create name="Delete CombinedFragment" precondition="[self.oclIsTypeOf(uml::CombinedFragment)/]">
+          <variables name="root" documentation="The semantic root element of the table."/>
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="container" documentation="The semantic element corresponding to the view container."/>
+          <firstModelOperation xsi:type="tool:ExternalJavaAction" name="DeleteCombinedFragmentAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+            <parameters name="combinedfragment" value="var:self"/>
+            <parameters name="action" value="['delCombinedFrag'/]"/>
+          </firstModelOperation>
+        </create>
+        <delete name="Delete Message" precondition="[self.oclIsTypeOf(uml::Message) and not (self.oclAsType(uml::Message).messageSort = uml::MessageSort::reply)/]">
+          <variables name="element" documentation="The semantic currently edited element."/>
+          <variables name="root" documentation="The semantic root element of the table."/>
+          <firstModelOperation xsi:type="tool:ExternalJavaAction" name="DeleteMessageAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+            <parameters name="message" value="var:self"/>
+            <parameters name="action" value="['delMessage'/]"/>
+          </firstModelOperation>
+        </delete>
+      </ownedLineMappings>
+      <ownedCreateLine name="New Lifeline" precondition="true">
+        <variables name="root" documentation="The semantic root element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ExternalJavaAction" name="NewLifelineAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+          <parameters name="interaction" value="var:self"/>
+          <parameters name="action" value="['newLifeline'/]"/>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedCreateLine name="New Message" precondition="true">
+        <variables name="root" documentation="The semantic root element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ExternalJavaAction" name="NewMessageAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+          <parameters name="interaction" value="var:self"/>
+          <parameters name="action" value="['newMessage'/]"/>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedCreateLine name="New CombinedFragment" precondition="true">
+        <variables name="root" documentation="The semantic root element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ExternalJavaAction" name="NewCombinedFragmentAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+          <parameters name="interaction" value="var:self"/>
+          <parameters name="action" value="['newCombinedFrag'/]"/>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedCreateLine name="New StateInvariant" precondition="true">
+        <variables name="root" documentation="The semantic root element of the table."/>
+        <variables name="element" documentation="The semantic currently edited element."/>
+        <variables name="container" documentation="The semantic element corresponding to the view container."/>
+        <firstModelOperation xsi:type="tool:ExternalJavaAction" name="NewStateInvariantAction" precondition="true" id="de.fzi.cooperate.sequence.DialogInvoker">
+          <parameters name="interaction" value="var:self"/>
+          <parameters name="action" value="['newStateInvariant'/]"/>
+        </firstModelOperation>
+      </ownedCreateLine>
+      <ownedColumnMappings name="Diagram Column" headerLabelExpression="Diagram" featureName="owner" labelExpression="[if self.oclIsTypeOf(uml::Message) or self.oclIsTypeOf(uml::CombinedFragment) then self.eContainer().oclAsType(uml::Interaction).name else '' endif/]"/>
+      <ownedColumnMappings name="Message Order Column" headerLabelExpression="Message Order" featureName="interaction" labelExpression="[if self.oclIsKindOf(uml::Message) then self.eContainer().eAllContents(uml::MessageOccurrenceSpecification)->collect(mso | mso.message)->asOrderedSet()->indexOf(self) else '' endif/]"/>
+      <ownedColumnMappings name="Type Column" headerLabelExpression="Type" featureName="interactionOperator"/>
+      <ownedColumnMappings name="Constraint Column" headerLabelExpression="Constraint" featureName="guard" labelExpression="[self.oclAsType(uml::InteractionOperand).guard.specification.oclAsType(uml::LiteralString).value/]"/>
+      <ownedColumnMappings name="From Column" headerLabelExpression="From" featureName="sendEvent" labelExpression="[if self.oclIsTypeOf(uml::Message) then self.oclAsType(uml::Message).sendEvent.oclAsType(uml::MessageOccurrenceSpecification).covered.represents.type.name->toString() else '' endif/]"/>
+      <ownedColumnMappings name="To Column" headerLabelExpression="To" featureName="receiveEvent" labelExpression="[if self.oclIsTypeOf(uml::Message) then self.oclAsType(uml::Message).receiveEvent.oclAsType(uml::MessageOccurrenceSpecification).covered.represents.type.name->toString() else '' endif/]"/>
+      <ownedColumnMappings name="Message Column" headerLabelExpression="Message" featureName="signature" labelExpression="service:getMessageName()"/>
+      <ownedColumnMappings name="Message Kind Column" headerLabelExpression="Message Kind" featureName="messageKind"/>
+      <ownedColumnMappings name="Message Sort Column" headerLabelExpression="Message Kind" featureName="messageSort"/>
+      <ownedColumnMappings name="Parameters Column" headerLabelExpression="Parameters" featureName="sendEvent" labelExpression="service:getInParameters()"/>
+      <ownedColumnMappings name="Return Column" headerLabelExpression="Return" featureName="sendEvent" labelExpression="service:getReturn()"/>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="de.fzi.cooperate.sequence.Services"/>
+  </ownedViewpoints>
+</description:Group>

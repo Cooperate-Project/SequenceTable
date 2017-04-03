@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension point="org.eclipse.sirius.componentization">
+    <component class="de.fzi.cooperate.sequence.Activator"
+               id="de.fzi.cooperate.sequence"
+	       name="sequence">
+    </component>
+  </extension>
+  <extension
+        point="org.eclipse.sirius.externalJavaAction">
+     <javaActions
+           actionClass="de.fzi.cooperate.sequence.DialogInvoker"
+           id="de.fzi.cooperate.sequence.DialogInvoker">
+     </javaActions>
+  </extension>
+</plugin>
